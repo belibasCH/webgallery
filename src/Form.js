@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storage } from './firebase';
+import './Form.css';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const Form = () => {
   const [imgUrl, setImgUrl] = useState(null);
   const [progresspercent, setProgresspercent] = useState(0);
+  const [formstate, setFormstate] = useState("choose");
+  //"choose", "ready", "upload", "done"
+  const [selectedFile, setSelectedFile] = useState(null);
+  
 
   const handleSubmit = (e) => {
+    setFormstate("upload");
     e.preventDefault()
-    const file = e.target[0]?.files[0]
-    if (!file) return;
-    const storageRef = ref(storage, `sp/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    if (!selectedFile) return;
+    const storageRef = ref(storage, `sp/${selectedFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
     uploadTask.on("state_changed",
       (snapshot) => {
@@ -23,25 +28,64 @@ const Form = () => {
         alert(error);
       },
       () => {
+        setFormstate("done");
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgUrl(downloadURL)
         });
       }
     );
   }
+  const selectfile = (e) => {
+    setFormstate("ready");
+    console.log(e.target.files[0]);
+    setSelectedFile(e.target.files[0]);
+  }
+  const goback = () => {
+    setFormstate("choose");
+    setImgUrl(null);
+    setProgresspercent(0);
+    setSelectedFile(null);
+  }
 
   return (
     <div className="upload-form">
       <form onSubmit={handleSubmit} className='form'>
-        <input type='file' />
-        <button type='submit'>Upload</button>
-      </form>
-      {
-        !imgUrl &&
-        <div className='outerbar'>
-          <div className='innerbar' style={{ width: `${progresspercent}%` }}>{progresspercent}%</div>
+        <div className='form-circle'>
+          {formstate == "choose" &&
+            <>
+              <div className='circle-content'>
+                <div className='circle-icon'></div>
+                <h2>Datei <br></br>auswählen</h2>
+              </div>
+              <input onChange={selectfile} type='file' />
+            </>
+          }
+          {formstate == "ready" &&
+            <div className='info'>
+            <h2 className="filename">{selectedFile.name}</h2>
+            </div>
+          }
+
+          {formstate == "upload" &&
+            <div className="progressbar"><h2>{progresspercent}%</h2></div>
+          }
+          {formstate == "done" &&
+            <div className="done" style={{backgroundImage: `url(${imgUrl})`}}><div className="done-icon"></div></div>
+          }
+
+
         </div>
-      }
+        {formstate == "ready" &&
+          <button type='submit' className="hochladen"> Hochladen</button>
+        }
+        
+      </form>
+      {formstate == "done" &&
+          <button onClick={goback}>Neues Foto hochladen</button>
+        }
+      {/* Progress bar */}
+      
+      {/* Display Image after upload */}
       {
         imgUrl &&
         <img src={imgUrl} alt='uploaded file' height={200} />
