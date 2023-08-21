@@ -5,7 +5,7 @@ import { storage } from './firebase';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Slideshow from './Slideshow';
-import Download from './Download';
+import Start from './Start';
 
 
 const App = () => {
@@ -13,9 +13,9 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Slideshow />}/>
+          <Route path="/" element={<Start />}/>
           <Route path="upload" element={<Form />} />
-          <Route path="download" element={<Download />} />
+          <Route path="slideshow" element={<Slideshow />} />
         </Routes>
       </BrowserRouter>
     </div>

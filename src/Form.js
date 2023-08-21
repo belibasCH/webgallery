@@ -83,13 +83,7 @@ const Form = () => {
       {formstate == "done" &&
           <button onClick={goback}>Neues Foto hochladen</button>
         }
-      {/* Progress bar */}
       
-      {/* Display Image after upload */}
-      {
-        imgUrl &&
-        <img src={imgUrl} alt='uploaded file' height={200} />
-      }
     </div>
   );
 }

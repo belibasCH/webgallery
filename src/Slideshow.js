@@ -6,8 +6,8 @@ import './App.css';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 function Slideshow() {
-const defaultimage = {_location: {path: "sp/1.jpg"}}
-  const [imageList, setImageList] = useState([defaultimage, defaultimage]);
+const defaultimage = {_location: {path: "sp/1"}}
+  const [imageList, setImageList] = useState([defaultimage]);
   console.log(imageList);
 
 const [currentimage, setCurrentImage] = useState(0);
@@ -34,12 +34,10 @@ const [currentimage, setCurrentImage] = useState(0);
       return () => clearInterval(interval);
 }, [imageList])
 
-
   return (
-
       <div className="image-list">
         {
-          imageList?.map((img, index) => (
+          imageList.map((img, index) => (
             <Image key={index} src={img} active= {currentimage == index ? true : false}/>
           ))
         }

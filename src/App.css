@@ -21,3 +21,56 @@
  .image-list .disable {
   display: none;
 }
+
+.image-galery{
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.image-galery img{
+  height: 200px;
+  width: auto;
+  margin: 0;
+}
+.button {
+  color: azure;
+  cursor: pointer;
+}
+.button-container {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.button-container * {
+  height: 50px;
+  width: 50px;
+  background-color:cadetblue;
+  border-radius: 10px;
+}
+.button-container .button .icon {
+
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url(./cloud.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  background-color: black;
+}
+.button-container .button .icon.upload{
+  mask-image: url(./cloud.svg);
+}
+.button-container .button .icon.fullscreen{
+  mask-image: url(./fullscreen.svg);
+}
+.button-container .button .icon.download{
+  mask-image: url(./download.svg);
+}

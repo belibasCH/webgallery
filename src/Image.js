@@ -4,7 +4,7 @@ import { storage } from './firebase';
 import { ref,  getDownloadURL } from "firebase/storage";
 
 const Image = ({key, src, active}) => {
- const [url, setUrl] = useState("");
+ const [url, setUrl] = useState("https://bbkmf.ch/wp-content/plugins/embed-any-document/images/loading.svg");
 
 useEffect(() => {
   try {

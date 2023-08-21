@@ -1,6 +1,6 @@
 .upload-form {
     position: relative;
-    height: 100vh;
+    height: calc(100vh - 50px);
     width: 100vw;
     background-image: url(sp.jpg);
     background-size: cover;
