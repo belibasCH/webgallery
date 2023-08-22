@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Form from './Form';
-import Image from './Image';
-import { storage } from './firebase';
-import './App.css';
+
+import Image from '../components/Image';
+import { storage } from '../config/firebase';
+import '../css/App.css';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 function Slideshow() {

@@ -90,7 +90,7 @@ input[type="file"] {
     height: 40px;
     width: 40px;
     background-color: white;
-    mask-image: url(cloud.svg);
+    mask-image: url(../assets/cloud.svg);
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
@@ -99,7 +99,7 @@ input[type="file"] {
     height: 40px;
     width: 40px;
     background-color: white;
-    mask-image: url(done.svg);
+    mask-image: url(../assets/done.svg);
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;

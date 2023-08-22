@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Image from './Image';
-import { storage } from './firebase';
-import './App.css';
+import Image from '../components/Image';
+import { storage } from '../config/firebase';
+import '../css/App.css';
 import { getStorage, ref, list, getDownloadURL, getBlob } from "firebase/storage";
 import { Link } from 'react-router-dom';
 

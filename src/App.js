@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Form from './Form';
-import Image from './Image';
-import { storage } from './firebase';
-import './App.css';
+import Form from './pages/Form';
+import Image from './components/Image';
+import { storage } from './config/firebase';
+import './css/App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Slideshow from './Slideshow';
-import Start from './Start';
+import Slideshow from './pages/Slideshow';
+import Start from './pages/Start';
 
 
 const App = () => {

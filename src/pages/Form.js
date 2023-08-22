@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { storage } from './firebase';
-import './Form.css';
+import { storage } from '../config/firebase';
+import '../css/Form.css';
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const Form = () => {

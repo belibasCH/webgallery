@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Form from './Form';
-import { storage } from './firebase';
+import Form from '../pages/Form';
+import { storage } from '../config/firebase';
 import { ref,  getDownloadURL } from "firebase/storage";
 
 const Image = ({key, src, active}) => {
