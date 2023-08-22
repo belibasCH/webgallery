@@ -9,12 +9,12 @@ function Start() {
   const [imageList, setImageList] = useState([]);
 
   useEffect(() => {
-    const storageRef = ref(storage, 'sp/');
+    const storageRef = ref(storage, 'public/');
     list(storageRef).then((res) => {
       setImageList(res.items);
     })
     const interval = setInterval(() => {
-      const storageRef = ref(storage, 'sp/');
+      const storageRef = ref(storage, 'public/');
       list(storageRef).then((res) => {
         setImageList(res.items);
       })
@@ -34,7 +34,7 @@ function Start() {
 
           const anchorElement = document.createElement('a');
           anchorElement.href = href;
-          anchorElement.download = 'SiriUndPascal';
+          anchorElement.download = 'WebGalery';
 
           document.body.appendChild(anchorElement);
           anchorElement.click();

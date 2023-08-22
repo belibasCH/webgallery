@@ -6,17 +6,17 @@ import './App.css';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 function Slideshow() {
-  const defaultimage = { _location: { path: "sp/1" } }
+  const defaultimage = { _location: { path: "public/1" } }
   const [imageList, setImageList] = useState([]);
   const [currentimage, setCurrentImage] = useState(0);
 
   useEffect(() => {
-    const storageRef = ref(storage, 'sp/');
+    const storageRef = ref(storage, 'public/');
     list(storageRef).then((res) => {
       setImageList(res.items);
     })
     const interval = setInterval(() => {
-      const storageRef = ref(storage, 'sp/');
+      const storageRef = ref(storage, 'public/');
       list(storageRef).then((res) => {
         setImageList(res.items);
       })
