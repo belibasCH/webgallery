@@ -6,9 +6,7 @@ import { getStorage, ref, list, getDownloadURL, getBlob } from "firebase/storage
 import { Link } from 'react-router-dom';
 
 function Start() {
-  const defaultimage = { _location: { path: "" } }
-  const [imageList, setImageList] = useState([defaultimage]);
-
+  const [imageList, setImageList] = useState([]);
 
   useEffect(() => {
     const storageRef = ref(storage, 'sp/');
@@ -32,29 +30,22 @@ function Start() {
       try {
         const storageRef = ref(storage, img._location.path_);
         getBlob(storageRef).then((blobImage) => {
-              const href = URL.createObjectURL(blobImage);
+          const href = URL.createObjectURL(blobImage);
 
-    const anchorElement = document.createElement('a');
-    anchorElement.href = href;
-    anchorElement.download = 'SiriUndPascal';
+          const anchorElement = document.createElement('a');
+          anchorElement.href = href;
+          anchorElement.download = 'SiriUndPascal';
 
-    document.body.appendChild(anchorElement);
-    anchorElement.click();
+          document.body.appendChild(anchorElement);
+          anchorElement.click();
 
-    document.body.removeChild(anchorElement);
-    window.URL.revokeObjectURL(href);
+          document.body.removeChild(anchorElement);
+          window.URL.revokeObjectURL(href);
         });
       } catch (error) {
         console.log(error);
       }
-
     })
-    console.log(urls);
-
-
-
-
-
 
   }
   return (
@@ -71,7 +62,7 @@ function Start() {
 
         <Link to="/upload" className='button'>
           <div className='upload icon'></div>
-          </Link>
+        </Link>
         <Link to="/slideshow" className='button'><div className='fullscreen icon'></div></Link>
         <div className='button' onClick={download}><div className='download icon'></div></div>
 

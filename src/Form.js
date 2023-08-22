@@ -9,7 +9,7 @@ const Form = () => {
   const [formstate, setFormstate] = useState("choose");
   //"choose", "ready", "upload", "done"
   const [selectedFile, setSelectedFile] = useState(null);
-  
+
 
   const handleSubmit = (e) => {
     setFormstate("upload");
@@ -37,7 +37,6 @@ const Form = () => {
   }
   const selectfile = (e) => {
     setFormstate("ready");
-    console.log(e.target.files[0]);
     setSelectedFile(e.target.files[0]);
   }
   const goback = () => {
@@ -62,7 +61,7 @@ const Form = () => {
           }
           {formstate == "ready" &&
             <div className='info'>
-            <h2 className="filename">{selectedFile.name}</h2>
+              <h2 className="filename">{selectedFile.name}</h2>
             </div>
           }
 
@@ -70,7 +69,7 @@ const Form = () => {
             <div className="progressbar"><h2>{progresspercent}%</h2></div>
           }
           {formstate == "done" &&
-            <div className="done" style={{backgroundImage: `url(${imgUrl})`}}><div className="done-icon"></div></div>
+            <div className="done" style={{ backgroundImage: `url(${imgUrl})` }}><div className="done-icon"></div></div>
           }
 
 
@@ -78,12 +77,12 @@ const Form = () => {
         {formstate == "ready" &&
           <button type='submit' className="hochladen"> Hochladen</button>
         }
-        
+
       </form>
       {formstate == "done" &&
-          <button onClick={goback}>Neues Foto hochladen</button>
-        }
-      
+        <button onClick={goback}>Neues Foto hochladen</button>
+      }
+
     </div>
   );
 }

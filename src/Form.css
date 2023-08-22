@@ -1,6 +1,6 @@
 .upload-form {
     position: relative;
-    height: calc(100vh - 50px);
+    height: 100vh;
     width: 100vw;
     background-image: url(sp.jpg);
     background-size: cover;
@@ -31,7 +31,7 @@
 
 button {
     position: absolute;
-    bottom: 20px;
+    bottom: 100px;
     right: 50%;
     transform: translateX(50%);
     width: calc(100vw - 40px);
