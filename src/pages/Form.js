@@ -15,7 +15,7 @@ const Form = () => {
     setFormstate("upload");
     e.preventDefault()
     if (!selectedFile) return;
-    const storageRef = ref(storage, `public/${selectedFile.name}`);
+    const storageRef = ref(storage, `js/${selectedFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
     uploadTask.on("state_changed",

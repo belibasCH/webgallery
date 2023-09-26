@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
-
 import Image from '../components/Image';
 import { storage } from '../config/firebase';
 import '../css/App.css';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 function Slideshow() {
-  const defaultimage = { _location: { path: "public/1" } }
+  const defaultimage = { _location: { path: "js/1" } }
   const [imageList, setImageList] = useState([]);
   const [currentimage, setCurrentImage] = useState(0);
 
   useEffect(() => {
-    const storageRef = ref(storage, 'public/');
+    const storageRef = ref(storage, 'js/');
     list(storageRef).then((res) => {
       setImageList(res.items);
     })
     const interval = setInterval(() => {
-      const storageRef = ref(storage, 'public/');
+      const storageRef = ref(storage, 'js/');
       list(storageRef).then((res) => {
         setImageList(res.items);
       })
