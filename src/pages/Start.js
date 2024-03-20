@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Image from '../components/Image';
-import { storage } from '../config/firebase';
+import { storage, db } from '../config/firebase';
 import '../css/App.css';
 import { getStorage, ref, list, getDownloadURL, getBlob } from "firebase/storage";
 import { Link } from 'react-router-dom';
+import { collection, getDocs } from "firebase/firestore"; 
+
+
 
 function Start() {
   const [imageList, setImageList] = useState([]);
+  console.log(imageList);
 
-  useEffect(() => {
-    const storageRef = ref(storage, 'public/');
-    list(storageRef).then((res) => {
-      setImageList(res.items);
-    })
-    const interval = setInterval(() => {
-      const storageRef = ref(storage, 'public/');
-      list(storageRef).then((res) => {
-        setImageList(res.items);
-      })
-    }, 600000);
-    return () => clearInterval(interval);
-
+  useEffect(() =>{
+    async function fetchData() {
+      const newImages = [];
+      const querySnapshot = await getDocs(collection(db, "js"));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data().description}`);
+        newImages.push(doc.data());
+      });
+      setImageList(newImages);
+    }
+    fetchData();
   }, [])
 
   async function download() {
@@ -52,8 +54,11 @@ function Start() {
     <>
       <div className="image-galery">
         {
-          imageList.map((img, index) => (
-            <Image key={index} src={img} active={true} />
+          imageList.map((element, index) => (
+            <div key={index}>
+            <img src={element.url}></img>
+            <p>{element.description}</p>
+            </div>
           ))
         }
 
