@@ -41,10 +41,6 @@ const Form = () => {
       }
     );
   }
-  const submit = () => {
-    //Push description and URL to DB
-    setFormstate("done")
-  }
   const selectfile = (e) => {
     setFormstate("upload");
     uploadImage(e.target.files[0]);
@@ -96,22 +92,24 @@ const Form = () => {
           {formstate == "description" &&
           <>
           <div className="done" style={{ backgroundImage: `url(${imgUrl})` }}><div className="done-icon"></div></div>
-          <input type="text" placeholder="Beschreibung" value={description} onChange={changeDescription}></input>
-          <button type='submit' className="hochladen">In Diashow einfügen</button>
+          <div style={{height: "20px"}}></div>
+          
           </>
           }
         </div>
+        {formstate == "description" &&
+        <input type="text" id="description" placeholder="Grussbotschaft, Beschreibung etc." value={description} onChange={changeDescription}></input>
+      } 
       
-
-      </form>
+      {formstate == "description" &&
+      <button type='submit' className="hochladen">In Diashow einfügen</button>
+        }
+        </form>
       {formstate == "done" &&
       <>
-      <button onClick={goback}>Zur Galerie</button>
         <button onClick={goback}>Neues Foto hochladen</button>
       </>
       }
-      <p>{imgUrl}</p>
-      <p>{description}</p>
     </div>
   );
 }

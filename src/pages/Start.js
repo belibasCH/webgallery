@@ -5,6 +5,7 @@ import '../css/App.css';
 import { getStorage, ref, list, getDownloadURL, getBlob } from "firebase/storage";
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from "firebase/firestore"; 
+import JSZip from 'jszip';
 
 
 
@@ -24,32 +25,39 @@ function Start() {
     }
     fetchData();
   }, [])
-
-  async function download() {
-    const urls = [];
-
-    await imageList.forEach(img => {
+  async function downloadAndZipImages() {
+    const zip = new JSZip();
+  
+    // Iterate over each image data object
+    for (const imageData of imageList) {
       try {
-        const storageRef = ref(storage, img._location.path_);
-        getBlob(storageRef).then((blobImage) => {
-          const href = URL.createObjectURL(blobImage);
-
-          const anchorElement = document.createElement('a');
-          anchorElement.href = href;
-          anchorElement.download = 'WebGalery';
-
-          document.body.appendChild(anchorElement);
-          anchorElement.click();
-
-          document.body.removeChild(anchorElement);
-          window.URL.revokeObjectURL(href);
-        });
+        // Fetch the image
+        const response = await fetch(imageData.url);
+        const blob = await response.blob();
+  
+        // Add the image to the zip file
+        zip.file(`${imageData.description || 'image'}.jpeg`, blob, { binary: true });
       } catch (error) {
-        console.log(error);
+        console.error('Error downloading image:', error);
       }
-    })
-
+    }
+  
+    // Generate the zip file
+    const content = await zip.generateAsync({ type: 'blob' });
+  
+    // Create a temporary link to download the zip file
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(content);
+    link.download = 'HochzeitsFotos.zip';
+  
+    // Programmatically click the link to trigger the download
+    link.click();
+  
+    // Clean up
+    URL.revokeObjectURL(link.href);
   }
+  
+
   return (
     <>
       <div className="image-galery">
@@ -69,7 +77,7 @@ function Start() {
           <div className='upload icon'></div>
         </Link>
         <Link to="/slideshow" className='button'><div className='fullscreen icon'></div></Link>
-        <div className='button' onClick={download}><div className='download icon'></div></div>
+        <div className='button' onClick={downloadAndZipImages}><div className='download icon'></div></div>
 
       </div>
 
