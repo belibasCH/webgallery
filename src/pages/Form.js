@@ -106,9 +106,8 @@ const Form = () => {
         }
         </form>
       {formstate == "done" &&
-      <>
+
         <button onClick={goback}>Neues Foto hochladen</button>
-      </>
       }
     </div>
   );

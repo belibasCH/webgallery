@@ -4,26 +4,36 @@ import { db } from '../config/firebase';
 import '../css/App.css';
 import { getDocs, collection } from "firebase/firestore";
 
+
+
 function Slideshow() {
   const defaultimage = { _location: { path: "js/1" } }
   const [imageList, setImageList] = useState([]);
   const [currentimage, setCurrentImage] = useState(0);
 
-  useEffect(() =>{
-    async function fetchData() {
+  async function fetchdata() {
       const newImages = [];
       const querySnapshot = await getDocs(collection(db, "js"));
       querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data().description}`);
         newImages.push(doc.data());
       });
       setImageList(newImages);
+  }
+
+  useEffect(() =>{
+    if (imageList.length === 0) {
+      fetchdata();
     }
-    fetchData();
-  }, [])
+    if (currentimage === imageList.length - 1){
+    fetchdata();
+    }
+  }, [currentimage])
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (currentimage === imageList.length - 1){
+        fetchdata(setImageList);
+      }
       setCurrentImage((currentimage) => (currentimage === imageList.length - 1 ? 0 : currentimage + 1));
     }, 5000);
     return () => clearInterval(interval);
@@ -43,3 +53,4 @@ function Slideshow() {
   );
 }
 export default Slideshow;
+
