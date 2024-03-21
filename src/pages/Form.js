@@ -57,9 +57,11 @@ const Form = () => {
   const upload = async event => {
     event.preventDefault()
     try {
+      const dateTime = new Date()
       const docRef = await addDoc(collection(db, "js"), {
         url: imgUrl,
-        description: description
+        description: description,
+        date: dateTime
     });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
