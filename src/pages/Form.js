@@ -21,7 +21,7 @@ const Form = () => {
 
   const uploadImage = (selectedFile) => {
     setFormstate("upload");
-    const storageRef = ref(storage, `js/${selectedFile.name}`);
+    const storageRef = ref(storage, `fab/${selectedFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, selectedFile);
 
     uploadTask.on("state_changed",
@@ -58,7 +58,7 @@ const Form = () => {
     event.preventDefault()
     try {
       const dateTime = new Date()
-      const docRef = await addDoc(collection(db, "js"), {
+      const docRef = await addDoc(collection(db, "fab"), {
         url: imgUrl,
         description: description,
         date: dateTime

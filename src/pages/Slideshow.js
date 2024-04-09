@@ -7,13 +7,13 @@ import { getDocs, collection } from "firebase/firestore";
 
 
 function Slideshow() {
-  const defaultimage = { _location: { path: "js/1" } }
+  const defaultimage = { _location: { path: "fab/1" } }
   const [imageList, setImageList] = useState([]);
   const [currentimage, setCurrentImage] = useState(0);
 
   async function fetchdata() {
       const newImages = [];
-      const querySnapshot = await getDocs(collection(db, "js"));
+      const querySnapshot = await getDocs(collection(db, "fab"));
       querySnapshot.forEach((doc) => {
         newImages.push(doc.data());
       });

@@ -16,7 +16,7 @@ function Start() {
   useEffect(() =>{
     async function fetchData() {
       const newImages = [];
-      const querySnapshot = await getDocs(collection(db, "js"));
+      const querySnapshot = await getDocs(collection(db, "fab"));
       querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data().description}`);
         newImages.push(doc.data());
